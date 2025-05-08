@@ -1,0 +1,340 @@
+/* Основні стилі сторінки */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #0f0f0f, #3a0000);
+    color: #f5f5f5;
+    transition: background 0.5s ease;
+}
+
+/* Нічна тема */
+body.night-theme {
+    background: linear-gradient(to right, #0f0f0f, #3a0000);
+    color: #f5f5f5;
+}
+
+/* Денна тема (м'який фіолетово-рожевий градієнт) */
+body.day-theme {
+    background: linear-gradient(to right, #ffccff, #2d033b);
+    color: #f5f5f5;
+}
+
+/* Плавна прокрутка */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Навігаційне меню */
+.navbar {
+    background-color: #1a0000;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(255, 0, 0, 0.4);
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+body.day-theme .navbar {
+    background-color: #4d007d;
+    box-shadow: 0 2px 6px rgba(255, 153, 255, 0.4);
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+    gap: 15px;
+}
+
+.navbar li a {
+    color: #ff4d4d;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.navbar li a:hover {
+    background-color: #4d0000;
+    color: #ffffff;
+}
+
+body.day-theme .navbar li a {
+    color: #ffccff;
+}
+
+body.day-theme .navbar li a:hover {
+    background-color: #660066;
+    color: #fff;
+}
+
+/* Структура блоків */
+header, section {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 900px;
+    background-color: rgba(20, 20, 20, 0.85);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.5);
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+body.day-theme header,
+body.day-theme section {
+    background-color: rgba(60, 0, 80, 0.85);
+    box-shadow: 0 4px 12px rgba(180, 80, 255, 0.5);
+}
+
+/* Заголовки */
+h1, h2 {
+    color: #ff2e2e;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+body.day-theme h1,
+body.day-theme h2 {
+    color: #b366ff;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+/* Фото профілю */
+img[alt="Фото"] {
+    display: block;
+    margin: 10px auto;
+    border: 3px solid #ff0000;
+    box-shadow: 0 0 10px #ff0000;
+    border-radius: 50%;
+    transition: border 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* 🔸 Фіолетове обрамлення у денній темі */
+body.day-theme img[alt="Фото"] {
+    border: 3px solid #b366ff;
+    box-shadow: 0 0 12px #cc99ff;
+}
+
+
+/* Списки */
+ul {
+    list-style: square inside;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+/* Посилання */
+a {
+    color: #ff4d4d;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #ff9999;
+}
+
+/* Селектор атрибутів + псевдоклас */
+a[target="_blank"]:hover {
+    color: #ffa5a5;
+}
+
+/* Flexbox для списків */
+section ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+section ul li {
+    background-color: #222;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: transform 0.2s, background-color 0.3s ease;
+}
+
+section ul li:hover {
+    transform: scale(1.05);
+    background-color: #400000;
+}
+
+/* Індивідуальний клас (наприклад, для виділення тексту) */
+.highlight {
+    background-color: #4d0000;
+    padding: 10px;
+    border-left: 5px solid #ff0000;
+}
+
+/* Адаптивність */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
+    img[alt="Фото"] {
+        width: 100px;
+        height: 100px;
+    }
+
+    section ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* МОДАЛЬНЕ ВІКНО */
+#feedback-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+#feedback-modal form {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+body.day-theme #feedback-modal form {
+    background: #3d005d;
+    box-shadow: 0 0 20px rgba(180, 80, 255, 0.6);
+}
+
+#feedback-modal input,
+#feedback-modal textarea {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+}
+
+#feedback-modal button[type="submit"] {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+body.day-theme #feedback-modal button[type="submit"] {
+    background-color: #b366ff;
+}
+
+#feedback-modal button[type="submit"]:hover {
+    background-color: #b30000;
+}
+
+body.day-theme #feedback-modal button[type="submit"]:hover {
+    background-color: #9933ff;
+}
+
+#feedback-modal button[type="button"] {
+    background: transparent;
+    color: #ccc;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* ПЕРЕМИКАЧ ТЕМИ */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1001;
+}
+
+.theme-toggle input {
+    display: none;
+}
+
+.theme-toggle label {
+    display: block;
+    width: 60px;
+    height: 30px;
+    background: #888;
+    border-radius: 30px;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 0 8px #000;
+}
+
+.theme-toggle label::after {
+    content: "";
+    width: 24px;
+    height: 24px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle input:checked + label {
+    background: #663399;
+}
+
+.theme-toggle input:checked + label::after {
+    transform: translateX(30px);
+}
+
+/* ФУТЕР */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1a0000;
+    color: #ccc;
+    margin-top: 40px;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.day-theme footer {
+    background-color: #4d007d;
+    color: #fff; /* світлий текст для денного футера */
+}
+
+body.night-theme footer {
+    background-color: #1a0000;
+    color: #ccc; /* темніший футер для нічної теми */
+}
+

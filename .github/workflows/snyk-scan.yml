@@ -2,13 +2,13 @@ name: CI/CD Static Code Scan with Snyk
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]  # тільки на основну гілку
   pull_request:
-    branches: [ main ]
+    branches: [ main ]  # PR можна запускати, але обмежено
 
 permissions:
-  contents: write
-  security-events: read
+  contents: write       # для пушу SARIF
+  security-events: read # для CodeQL / Snyk інтеграції
 
 jobs:
   snyk-code:
@@ -42,16 +42,16 @@ jobs:
             echo "sarif_exists=false" >> $GITHUB_OUTPUT
           fi
 
-      # 5. Завантажуємо SARIF у GitHub Code Scanning, якщо файл створений
+      # 5. Завантажуємо SARIF у GitHub Code Scanning, якщо файл існує
       - name: Upload SARIF to GitHub Code Scanning
-        if: steps.snyk_code.outputs.sarif_exists == 'true'
+        if: steps.snyk_code.outputs.sarif_exists == 'true' && github.event_name == 'push'
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: results.sarif
 
-      # 6. Пушимо файл SARIF назад у репозиторій (CI/CD частина)
+      # 6. Пушимо SARIF у репозиторій тільки на push у main
       - name: Commit SARIF to repo
-        if: steps.snyk_code.outputs.sarif_exists == 'true'
+        if: steps.snyk_code.outputs.sarif_exists == 'true' && github.event_name == 'push'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"

@@ -24,12 +24,18 @@ jobs:
         run: snyk auth $SNYK_TOKEN
 
       - name: Run Snyk Code test (static analysis)
+        id: snyk_code
         run: |
           echo "Running Snyk Code test..."
           snyk code test --sarif-file-output=results.sarif || echo "Snyk Code not enabled, skipping"
+          if [ -f results.sarif ]; then
+            echo "sarif_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "sarif_exists=false" >> $GITHUB_OUTPUT
+          fi
 
-      - name: Upload SARIF if exists
-        if: exists('results.sarif')
+      - name: Upload SARIF to GitHub Code Scanning
+        if: steps.snyk_code.outputs.sarif_exists == 'true'
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: results.sarif
